@@ -1,0 +1,87 @@
+/* 1. Importamos la fuente Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* 2. Importación principal de Tailwind v4 (Reemplaza a los antiguos @tailwind) */
+@import "tailwindcss";
+
+/* 3. Configuración del tema nativa de Tailwind v4 (Reemplaza al tailwind.config.js) */
+@theme {
+  --font-sans: 'Poppins', sans-serif;
+
+  --color-seraphim-light: #FEF8F7;
+  --color-seraphim-dark: #1C1514;
+  --color-seraphim-primary: #FF6B6B;
+  --color-seraphim-primary-dark: #FF8A8A;
+  --color-seraphim-alert: #DC2626;
+  --color-seraphim-alert-dark: #EF4444;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes gradient-bg {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* --- COMPONENTES PERSONALIZADOS --- */
+@layer utilities {
+  /* Truco geométrico para la gota de sangre */
+  .gota-sangre {
+    border-radius: 0 50% 50% 50%;
+    transform: rotate(45deg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .gota-sangre > span {
+    transform: rotate(-45deg);
+  }
+}
+
+/* --- ESTILOS BASE (BODY) --- */
+@layer base {
+  body {
+    /* Degradado lineal animado (Claro) */
+    background: linear-gradient(
+            -45deg,
+            var(--color-seraphim-light),
+            var(--color-seraphim-light),
+            var(--color-seraphim-primary),
+            var(--color-seraphim-alert),
+            var(--color-seraphim-light)
+    );
+    background-size: 400% 400%;
+    animation: gradient-bg 15s ease infinite;
+
+    color: var(--color-slate-800, #1e293b);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: color 0.3s ease-in-out;
+    min-height: 100vh;
+  }
+
+  /* Estilos automáticos para cuando se active el modo oscuro */
+  .dark body {
+    /* Degradado lineal animado (Oscuro) */
+    background: linear-gradient(
+            -45deg,
+            var(--color-seraphim-dark),
+            var(--color-seraphim-dark),
+            var(--color-seraphim-primary-dark),
+            var(--color-seraphim-alert-dark),
+            var(--color-seraphim-dark)
+    );
+    background-size: 400% 400%;
+    animation: gradient-bg 15s ease infinite;
+
+    color: var(--color-slate-200, #e2e8f0);
+  }
+}
